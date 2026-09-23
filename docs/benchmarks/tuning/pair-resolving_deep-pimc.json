@@ -1,0 +1,90 @@
+{
+ "schema_version": 1,
+ "run_label": "P6-A3 exploratory: deep resolving (24w/600k/300cfr/d6) vs pimc \u2014 relaxed 120s time contract",
+ "ruleset": "nintendo",
+ "seeds": [
+  180100,
+  180101,
+  180102,
+  180103,
+  180104,
+  180105,
+  180106,
+  180107,
+  180108,
+  180109,
+  180110,
+  180111,
+  180112,
+  180113,
+  180114,
+  180115,
+  180116,
+  180117,
+  180118,
+  180119,
+  180120,
+  180121,
+  180122,
+  180123,
+  180124,
+  180125,
+  180126,
+  180127,
+  180128,
+  180129,
+  180130,
+  180131
+ ],
+ "stopping": {
+  "kind": "sequential",
+  "h0_elo": 0.0,
+  "h1_elo": 100.0,
+  "alpha": 0.05,
+  "beta": 0.05,
+  "min_clusters": 8
+ },
+ "worker_timeout_seconds": 180,
+ "time_hard_cap_ms": 120000,
+ "invalid_forfeit_margin": 256.0,
+ "bootstrap": {
+  "repetitions": 10000,
+  "seed": 7,
+  "confidence_level": 0.99
+ },
+ "baseline": {
+  "label": "pimc",
+  "artifact": {
+   "kind": "self_binary"
+  },
+  "config": {
+   "solver": "pimc",
+   "pimc": {
+    "max_simulations": 512,
+    "batch_size": 64,
+    "scoring_method": "mean"
+   },
+   "seed": 12
+  }
+ },
+ "candidate": {
+  "label": "resolving_deep",
+  "artifact": {
+   "kind": "self_binary"
+  },
+  "config": {
+   "solver": "resolving",
+   "resolving": {
+    "max_worlds": 24,
+    "max_nodes": 600000,
+    "cfr_iterations": 300,
+    "max_decision_depth": 6,
+    "adaptive": false,
+    "ox": false,
+    "blueprint_artifact": null,
+    "leaf_model": null
+   },
+   "seed": 11
+  }
+ }
+}

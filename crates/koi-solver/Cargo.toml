@@ -1,0 +1,48 @@
+[package]
+name = "koi-maestro-solver"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+homepage.workspace = true
+# The 21MB ONNX parity fixture would blow past crates.io's 10MB crate cap;
+# the golden-parity test already skips cleanly without it (same path as a
+# missing ORT dylib), so the published crate stays lean.
+exclude = ["tests/leaf/model.onnx"]
+
+
+[lib]
+name = "koi_solver"
+
+[features]
+# The ONNX Runtime leaf backend — load-dynamic:
+# the shared library is discovered at runtime (ORT_DYLIB_PATH/init_from), so
+# the default build never requires ORT binaries.
+leaf-ort = ["dep:ort", "dep:ndarray", "dep:libloading"]
+# CUDA execution-provider registration (still load-dynamic — no prebuilt
+# binaries are fetched). Sessions register CUDA fail-silently and fall back
+# to the CPU EP — the CUDA→CPU selection rule.
+leaf-ort-cuda = ["leaf-ort", "ort/cuda"]
+
+[dependencies]
+koi-maestro-core.workspace = true
+rayon.workspace = true
+rand.workspace = true
+rand_chacha.workspace = true
+rustc-hash.workspace = true
+smallvec.workspace = true
+log.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+ort = { workspace = true, optional = true }
+ndarray = { workspace = true, optional = true }
+libloading = { workspace = true, optional = true }
+
+[dev-dependencies]
+# anyhow is dev-only: only the example binaries use it.
+anyhow.workspace = true
+koi-maestro-build-info.workspace = true
+[lints]
+workspace = true

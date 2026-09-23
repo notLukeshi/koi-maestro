@@ -1,0 +1,6 @@
+# Pinned toolchain — keeps CI, DGX Spark, and local builds on the same
+# rustc so codegen-affecting changes (LLVM version, target features) are
+# an explicit, reviewable event rather than a floating-stable surprise.
+[toolchain]
+channel = "1.93.1"
+components = ["rustfmt", "clippy"]

@@ -1,0 +1,36 @@
+﻿{
+    "frozen_at_utc":  "2026-09-21T17:45:37.1398012Z",
+    "git_commit":  "bc6adfeda58b6b8b6ecabf5a013b4deaddc5b21a",
+    "git_tree_hash":  "e23075c861439fc7b5fbb920fb98b9c1d251bd6d",
+    "binary_sha256":  "890228ceaafb8c1bebcd4e1d936f432a2c8ee7cc680797d84cc59853abe0736e",
+    "binary_path":  "target/release/koi-bench.exe",
+    "manifest_sha256":  "c869c1f42af4d9d2c2583746e22b94d453fde4049aa3cbbc2d0d5cdbf85e58fb",
+    "panel_sha256":  "94e924191f4270d9b4c559a05deb12b1aea685636488a06c969052cc54a78a05",
+    "panel_hash_fx64":  "cd42c48457b48eec",
+    "blueprint_sha256":  null,
+    "leaf_model_sha256":  null,
+    "ruleset":  "nintendo",
+    "stopping":  {
+                     "kind":  "sequential",
+                     "h0_elo":  0.0,
+                     "h1_elo":  100.0,
+                     "alpha":  0.05,
+                     "beta":  0.05,
+                     "min_clusters":  8,
+                     "equivalence":  {
+                                         "delta":  0.05,
+                                         "alpha":  0.05,
+                                         "min_clusters":  16
+                                     }
+                 },
+    "lane_count":  4,
+    "entrant_config_sha256":  {
+                                  "resolving_adaptive":  "04667ecfb3e40979a6112539370e6635ffe85bcc15a8af7419fcfb93ea1fa29d",
+                                  "ismcts":  "cf7bda073107902cf42cb648261c902078d50c9b95da2b0335731a8da069d279",
+                                  "pimc":  "63a23d1010836ef6752991d1e6bbf53f8719e91015ffb9fc88e92b4ce049bc5a",
+                                  "resolving_fixed":  "39a18dbf4e2b81d5e96c28c937c5c3c71be945b8da4361ea8dd569ddb0cc505d",
+                                  "heuristic":  "9b5990df51c5ca75104e08d5f66027146617861eb138e8655191fcdcf79974d2",
+                                  "endgame":  "8c814453942cfaa8043c6f2fc8acab5e10e326094dbb5a11e7d08da7a359a50e",
+                                  "random":  "76530382d3f27c32a7b2fc2c7eb827839467d854080624d63febbf2ffa84e4ba"
+                              }
+}

@@ -1,0 +1,36 @@
+[package]
+name = "koi-maestro-pyo3"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+homepage.workspace = true
+
+[lib]
+name = "koi_maestro_rs"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+koi-maestro-core.workspace = true
+koi-maestro-solver.workspace = true
+pyo3.workspace = true
+pyo3-stub-gen.workspace = true
+anyhow.workspace = true
+
+[features]
+# ONNX leaf-model support for `resolving.leaf_model` — forwards to the
+# solver's optional `ort` backend. Wheels built without it still accept
+# `builtin:handcrafted`; a model path fails closed as `RuntimeUnavailable`.
+leaf-ort = ["koi-maestro-solver/leaf-ort"]
+# CUDA EP registration on top of leaf-ort — CUDA→CPU fallback on hosts
+# without a usable GPU. Wheels for GPU hosts build with both flags.
+leaf-ort-cuda = ["koi-maestro-solver/leaf-ort-cuda"]
+
+[[bin]]
+name = "stub_gen"
+path = "src/bin/stub_gen.rs"
+
+[lints]
+workspace = true

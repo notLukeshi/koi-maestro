@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "run_label": "P5 smoke: ismcts vs heuristic (post-stable_ln)",
+  "ruleset": "nintendo",
+  "seeds": [
+    180001,
+    180002,
+    180003,
+    180004
+  ],
+  "stopping": {
+    "kind": "sequential",
+    "h0_elo": 0.0,
+    "h1_elo": 100.0,
+    "alpha": 0.05,
+    "beta": 0.05,
+    "min_clusters": 2
+  },
+  "worker_timeout_seconds": 60,
+  "time_hard_cap_ms": 30000,
+  "invalid_forfeit_margin": 256.0,
+  "bootstrap": {
+    "repetitions": 1000,
+    "seed": 7,
+    "confidence_level": 0.99
+  },
+  "baseline": {
+    "label": "heuristic",
+    "artifact": {
+      "kind": "self_binary"
+    },
+    "config": {
+      "solver": "heuristic",
+      "archetype": null,
+      "ismcts": {
+        "iterations": 10000,
+        "score_norm": 20.0
+      },
+      "pimc": {
+        "max_simulations": 64,
+        "batch_size": 32,
+        "scoring_method": "mean"
+      },
+      "use_parallel": true,
+      "log_level": "warn",
+      "seed": 7
+    }
+  },
+  "candidate": {
+    "label": "ismcts",
+    "artifact": {
+      "kind": "self_binary"
+    },
+    "config": {
+      "solver": "ismcts",
+      "archetype": null,
+      "ismcts": {
+        "iterations": 10000,
+        "score_norm": 20.0
+      },
+      "pimc": {
+        "max_simulations": 64,
+        "batch_size": 32,
+        "scoring_method": "mean"
+      },
+      "use_parallel": true,
+      "log_level": "warn",
+      "seed": 2
+    }
+  }
+}

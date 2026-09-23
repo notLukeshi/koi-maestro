@@ -1,0 +1,133 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+# Platform matrix: Windows x86_64 + Linux x86_64 + Linux aarch64 (Grace Blackwell
+# / DGX OS equivalent). macOS is intentionally excluded. NOTE: ubuntu-24.04-arm
+# is free for PUBLIC repos; on private repos it requires a paid plan.
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            shell: pwsh
+            script: ./scripts/check.ps1
+          - os: ubuntu-latest
+            shell: bash
+            script: bash ./scripts/check.sh
+          - os: ubuntu-24.04-arm
+            shell: bash
+            script: bash ./scripts/check.sh
+
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    # Step-level `shell:` cannot use matrix context — this must live here.
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+
+    steps:
+      - uses: actions/checkout@v5
+
+      # Ensures a discoverable Python + libpython for koi-pyo3 build/test
+      # linking (the aarch64 image's python3-dev availability is not guaranteed).
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        # The default `components` is `clippy` only — rustfmt must be explicit.
+        with:
+          components: clippy, rustfmt
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install nextest
+        uses: taiki-e/install-action@nextest
+
+      - name: Validate
+        run: ${{ matrix.script }}
+
+  # `cargo check` needs no linker, so cross-target checks verify portability of
+  # the native crates from any host. `--all-targets` also cross-compiles
+  # tests/examples — dev-deps must stay pure-Rust (the criterion C toolchain
+  # was the blocker removed in P6). koi-pyo3 is excluded (needs a target-side
+  # Python); it is validated by the native wheels job below.
+  cross-targets:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-unknown-linux-gnu, x86_64-unknown-linux-gnu
+
+      # The action's `targets` install onto `stable`, but rust-toolchain.toml
+      # overrides cargo to the pinned channel — add the targets there too or
+      # the cross-check dies with E0463 "can't find crate for `std`".
+      - name: Install cross targets on the pinned toolchain
+        run: rustup target add aarch64-unknown-linux-gnu x86_64-unknown-linux-gnu
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      # `shell: bash` (Git Bash is preinstalled on windows runners): without it
+      # pwsh would swallow a mid-script cargo failure and report the last
+      # command's exit code only.
+      - name: Cross-check native crates
+        shell: bash
+        run: |
+          cargo check --locked --all-targets -p koi-maestro-core -p koi-maestro-solver -p koi-maestro-bench --target aarch64-unknown-linux-gnu
+          cargo check --locked --all-targets -p koi-maestro-core -p koi-maestro-solver -p koi-maestro-bench --target x86_64-unknown-linux-gnu
+
+  # Native wheel build + import smoke test on every supported platform.
+  wheels:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install maturin
+        run: python -m pip install --upgrade pip maturin
+
+      - name: Build wheel
+        # --profile is required: on maturin >=1.10 a bare --release overrides
+        # pyproject's release-wheel profile and ships panic=abort wheels.
+        run: maturin build --profile release-wheel
+
+      - name: Install and smoke-test wheel
+        shell: bash
+        run: |
+          wheel=$(ls target/wheels/koi_maestro-*.whl | head -n1)
+          python -m pip install "$wheel"
+          python -c "import koi_maestro; assert koi_maestro.__version__, 'empty version'"

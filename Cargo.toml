@@ -1,0 +1,101 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/koi-bench",
+    "crates/koi-build-info",
+    "crates/koi-core",
+    "crates/koi-learn",
+    "crates/koi-pyo3",
+    "crates/koi-solver",
+]
+# Benchmark artifact resolution materializes git worktrees under target/ —
+# without this exclusion Cargo would try to read them as workspace members.
+exclude = ["target"]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.85"
+authors = ["notLukeshi"]
+license = "MIT OR Apache-2.0"
+description = "Hanafuda Koi-Koi engine and game-theoretic solver suite"
+repository = "https://github.com/notLukeshi/koi-maestro"
+homepage = "https://github.com/notLukeshi/koi-maestro"
+
+[workspace.dependencies]
+koi-maestro-build-info = { path = "crates/koi-build-info", version = "1.0.0" }
+koi-maestro-core = { path = "crates/koi-core", version = "1.0.0" }
+koi-maestro-learn = { path = "crates/koi-learn", version = "1.0.0" }
+koi-maestro-solver = { path = "crates/koi-solver", version = "1.0.0" }
+
+# High-Performance Math & RNG
+rand = "0.10.2"
+rand_chacha = "0.10.0"
+rayon = "1.11"
+smallvec = { version = "1.13", features = ["const_generics"] }
+rustc-hash = "2.1.1"
+
+# Python Bridge
+pyo3 = { version = "0.29.2" }
+# Leaf-evaluator ONNX backend — pinned to a sibling research codebase's vetted rc line;
+# load-dynamic only (runtime library discovery, no build-time native dep).
+ort = { version = "=2.0.0-rc.13", default-features = false, features = ["std", "ndarray", "load-dynamic", "api-17"] }
+# ndarray version must match `ort`'s dependency (0.17) — the TensorRef
+# conversion impls are version-specific.
+ndarray = "0.17"
+libloading = "0.8"
+# pyo3-stub-gen generates the committed _engine.pyi; the 0.23 line is the
+# one supporting pyo3 >=0.27,<0.30 — keep the pair in lockstep.
+pyo3-stub-gen = "0.23.0"
+
+# Serialization & CLI
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+clap = { version = "4.5", features = ["derive"] }
+
+# Logging & Error Handling
+log = "0.4"
+env_logger = "0.11"
+anyhow = "1.0"
+
+# Testing & Benchmarking
+proptest = "=1.11.0"
+
+# ── Workspace lints — member crates opt in via `[lints] workspace = true` ──
+# unsafe stays warn-loud (process containment is the only intentional user);
+# the clippy trio catches placeholder code that must never reach a gate.
+[workspace.lints.rust]
+unsafe_code = "warn"
+
+[workspace.lints.clippy]
+todo = "warn"
+unimplemented = "warn"
+dbg_macro = "warn"
+
+# ── Profiles — legal only at the workspace root ─────────────────────────
+[profile.dev]
+opt-level = 0
+debug = "line-tables-only"
+split-debuginfo = "unpacked"
+
+[profile.dev.package."*"]
+opt-level = 2
+
+[profile.release] # DEFAULT — official benchmarks/perf numbers only ever use this
+opt-level = 3
+codegen-units = 1
+lto = "fat"
+panic = "abort"
+strip = true
+debug = false
+incremental = false
+overflow-checks = false
+
+[profile.release-ci] # gate profile — thin LTO + multi-CGU cut wall-clock;
+inherits = "release" #   parity kept: panic=abort, overflow-checks off.
+codegen-units = 256  #   check.{ps1,sh} run this; KOI_PROFILE=release for
+lto = "thin"         #   the certification pass. Perf numbers: release only.
+
+[profile.release-wheel] # maturin wheel profile: a kernel panic must unwind
+inherits = "release"    # into a catchable PanicException, not abort the host
+panic = "unwind"        # interpreter — abort gives Python no recovery path.

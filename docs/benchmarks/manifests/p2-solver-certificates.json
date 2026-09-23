@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "label": "p2-solver-certificates",
+  "purpose": "Reduced-domain solver certificates: exact sequence-form LP equilibrium on nano_6 and CFR-family exploitability-vs-iterations convergence on micro_8. Scope: declared reduced domains only — not a claim about the full 48-card game.",
+  "lp_certificate": {
+    "variant": "nano_6",
+    "dealer": "south",
+    "exploitability_tolerance": 1e-6
+  },
+  "convergence": {
+    "variant": "micro_8",
+    "dealer": "south",
+    "algorithms": [
+      { "name": "cfr_plus", "iterations": [10, 30, 100, 300, 1000, 3000] },
+      { "name": "dcfr", "iterations": [10, 30, 100, 300, 1000, 3000] },
+      { "name": "pcfr_plus", "iterations": [10, 30, 100, 300, 1000, 3000] },
+      { "name": "mccfr", "iterations": [500, 2000, 10000, 40000], "seed": 4206917 },
+      { "name": "ccs_mccfr", "iterations": [500, 2000, 10000, 40000], "seed": 4206917 }
+    ]
+  }
+}

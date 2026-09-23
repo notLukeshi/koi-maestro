@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "label": "p2-solver-certificates",
+  "provenance": {
+    "build_commit": "0ed00701b942782ac877d71c9b1f54430c380d6c",
+    "build_tree": "5f25c759e4f02923474c1d577f6fb51fb122a6be",
+    "build_dirty": true,
+    "source_digest_fnv1a64": "08804da7894b7b50",
+    "rustflags": "",
+    "pgo_profile_fx64": null,
+    "cargo_lock_hash": "c4764f253c75b6f2"
+  },
+  "manifest_hash": "5360ab4d8fe22ff0",
+  "lp_certificate": {
+    "domain": {
+      "variant": "nano_6",
+      "nodes": 2519,
+      "infosets": 1062,
+      "terminals": 504,
+      "south_sequences": 315,
+      "north_sequences": 845,
+      "payoff_cells": 266175
+    },
+    "value_south": 1.7777777777777783,
+    "value_north": -1.7777777777777777,
+    "exploitability": 0.0,
+    "tolerance": 1e-6,
+    "certified": true,
+    "wall_seconds": 1.2846115
+  },
+  "convergence": {
+    "domain": {
+      "variant": "micro_8",
+      "nodes": 41161,
+      "infosets": 18672,
+      "terminals": 13536,
+      "south_sequences": 1321,
+      "north_sequences": 18337,
+      "payoff_cells": 24223177
+    },
+    "curves": [
+      {
+        "algorithm": "cfr_plus",
+        "seed": null,
+        "points": [
+          {
+            "iterations": 10,
+            "exploitability": 0.0006370535012680534,
+            "profile_value_south": 0.4272973215688928,
+            "wall_seconds": 0.0451628
+          },
+          {
+            "iterations": 30,
+            "exploitability": 0.00007135633502050598,
+            "profile_value_south": 0.42842871590138787,
+            "wall_seconds": 0.1005123
+          },
+          {
+            "iterations": 100,
+            "exploitability": 6.4279857681648345e-6,
+            "profile_value_south": 0.42855857259989255,
+            "wall_seconds": 0.3620705
+          },
+          {
+            "iterations": 300,
+            "exploitability": 7.142784836100535e-7,
+            "profile_value_south": 0.42857000001446166,
+            "wall_seconds": 1.1208318
+          },
+          {
+            "iterations": 1000,
+            "exploitability": 6.428565560434585e-8,
+            "profile_value_south": 0.42857130000011767,
+            "wall_seconds": 3.9494958000000002
+          },
+          {
+            "iterations": 3000,
+            "exploitability": 7.142856695008248e-9,
+            "profile_value_south": 0.4285714142857155,
+            "wall_seconds": 8.9644598
+          }
+        ]
+      },
+      {
+        "algorithm": "dcfr",
+        "seed": null,
+        "points": [
+          {
+            "iterations": 10,
+            "exploitability": 0.00029100268870080326,
+            "profile_value_south": 0.4279894231940273,
+            "wall_seconds": 0.040014
+          },
+          {
+            "iterations": 30,
+            "exploitability": 0.000012958449138095185,
+            "profile_value_south": 0.4285455116731527,
+            "wall_seconds": 0.0975265
+          },
+          {
+            "iterations": 100,
+            "exploitability": 3.744052023135769e-7,
+            "profile_value_south": 0.42857067976102425,
+            "wall_seconds": 0.2908441
+          },
+          {
+            "iterations": 300,
+            "exploitability": 1.414395781051958e-8,
+            "profile_value_south": 0.42857140028351326,
+            "wall_seconds": 0.8245237
+          },
+          {
+            "iterations": 1000,
+            "exploitability": 3.845600782259595e-10,
+            "profile_value_south": 0.4285714278023087,
+            "wall_seconds": 2.9452248
+          },
+          {
+            "iterations": 3000,
+            "exploitability": 1.4271278603317228e-11,
+            "profile_value_south": 0.4285714285428863,
+            "wall_seconds": 9.4381205
+          }
+        ]
+      },
+      {
+        "algorithm": "pcfr_plus",
+        "seed": null,
+        "points": [
+          {
+            "iterations": 10,
+            "exploitability": 0.00029100268870080326,
+            "profile_value_south": 0.4279894231940273,
+            "wall_seconds": 0.0298903
+          },
+          {
+            "iterations": 30,
+            "exploitability": 0.000012958449138095185,
+            "profile_value_south": 0.4285455116731527,
+            "wall_seconds": 0.1049263
+          },
+          {
+            "iterations": 100,
+            "exploitability": 3.744052023135769e-7,
+            "profile_value_south": 0.42857067976102425,
+            "wall_seconds": 0.3358015
+          },
+          {
+            "iterations": 300,
+            "exploitability": 1.414395781051958e-8,
+            "profile_value_south": 0.42857140028351326,
+            "wall_seconds": 1.0375713
+          },
+          {
+            "iterations": 1000,
+            "exploitability": 3.845600782259595e-10,
+            "profile_value_south": 0.4285714278023087,
+            "wall_seconds": 3.4004568
+          },
+          {
+            "iterations": 3000,
+            "exploitability": 1.4271278603317228e-11,
+            "profile_value_south": 0.4285714285428863,
+            "wall_seconds": 13.3756646
+          }
+        ]
+      },
+      {
+        "algorithm": "mccfr",
+        "seed": 4206917,
+        "points": [
+          {
+            "iterations": 500,
+            "exploitability": 0.06663194444444415,
+            "profile_value_south": 0.2953075396825406,
+            "wall_seconds": 0.0065207
+          },
+          {
+            "iterations": 2000,
+            "exploitability": 0.05220957341269811,
+            "profile_value_south": 0.32415228174603267,
+            "wall_seconds": 0.0104922
+          },
+          {
+            "iterations": 10000,
+            "exploitability": 0.022463293650793498,
+            "profile_value_south": 0.3836448412698419,
+            "wall_seconds": 0.036956
+          },
+          {
+            "iterations": 40000,
+            "exploitability": 0.006946093750000049,
+            "profile_value_south": 0.4146792410714288,
+            "wall_seconds": 0.1142717
+          }
+        ]
+      },
+      {
+        "algorithm": "ccs_mccfr",
+        "seed": 4206917,
+        "points": [
+          {
+            "iterations": 500,
+            "exploitability": 0.06136011904761887,
+            "profile_value_south": 0.30585119047619114,
+            "wall_seconds": 0.0046549
+          },
+          {
+            "iterations": 2000,
+            "exploitability": 0.04739905753968238,
+            "profile_value_south": 0.3337733134920641,
+            "wall_seconds": 0.0097132
+          },
+          {
+            "iterations": 10000,
+            "exploitability": 0.020275148809523524,
+            "profile_value_south": 0.38802113095238183,
+            "wall_seconds": 0.0391106
+          },
+          {
+            "iterations": 40000,
+            "exploitability": 0.005897544642856994,
+            "profile_value_south": 0.4167763392857149,
+            "wall_seconds": 0.1529221
+          }
+        ]
+      }
+    ]
+  }
+}

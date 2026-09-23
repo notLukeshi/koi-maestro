@@ -1,0 +1,23 @@
+[package]
+name = "koi-maestro-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+homepage.workspace = true
+
+
+[lib]
+name = "koi_core"
+
+[dependencies]
+rand.workspace = true
+rand_chacha.workspace = true
+smallvec.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
+[lints]
+workspace = true

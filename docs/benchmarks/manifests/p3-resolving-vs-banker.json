@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "run_label": "P3: resolving_adaptive vs banker",
+  "ruleset": "nintendo",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64
+  ],
+  "stopping": {
+    "kind": "sequential",
+    "h0_elo": 0.0,
+    "h1_elo": 100.0,
+    "alpha": 0.05,
+    "beta": 0.05,
+    "min_clusters": 8
+  },
+  "worker_timeout_seconds": 60,
+  "time_hard_cap_ms": 30000,
+  "invalid_forfeit_margin": 256.0,
+  "bootstrap": {
+    "repetitions": 10000,
+    "seed": 7,
+    "confidence_level": 0.99
+  },
+  "baseline": {
+    "label": "banker",
+    "artifact": {
+      "kind": "self_binary"
+    },
+    "config": {
+      "solver": "archetype",
+      "archetype": "banker",
+      "ismcts": {
+        "iterations": 10000,
+        "score_norm": 20.0
+      },
+      "pimc": {
+        "max_simulations": 64,
+        "batch_size": 32,
+        "scoring_method": "mean"
+      },
+      "use_parallel": true,
+      "log_level": "warn",
+      "seed": 7
+    }
+  },
+  "candidate": {
+    "label": "resolving_adaptive",
+    "artifact": {
+      "kind": "self_binary"
+    },
+    "config": {
+      "solver": "resolving",
+      "archetype": null,
+      "ismcts": {
+        "iterations": 10000,
+        "score_norm": 20.0
+      },
+      "pimc": {
+        "max_simulations": 64,
+        "batch_size": 32,
+        "scoring_method": "mean"
+      },
+      "resolving": {
+        "max_worlds": 12,
+        "max_nodes": 150000,
+        "cfr_iterations": 60,
+        "max_decision_depth": 3,
+        "adaptive": true,
+        "ox": false,
+        "blueprint_artifact": null
+      },
+      "use_parallel": true,
+      "log_level": "warn",
+      "seed": 2
+    }
+  }
+}

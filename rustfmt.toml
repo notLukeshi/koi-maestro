@@ -1,0 +1,6 @@
+# Formatting contract — the codebase is written at 120 columns
+# (inherited from a sibling research codebase's style guide). Without this file
+# `cargo fmt --check` — the first gate in scripts/check.{ps1,sh} —
+# would reformat the whole tree to the 100-column default and fail.
+max_width = 120
+edition = "2021"

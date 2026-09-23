@@ -1,0 +1,38 @@
+﻿{
+    "frozen_at_utc":  "2026-09-22T05:08:33.3462629Z",
+    "git_commit":  "9d0894e6ac3776fb43b8092b79a32bcf06d7db29",
+    "git_tree_hash":  "8958f98e80f2be64eabef2369e382644518b25fc",
+    "binary_sha256":  "98d75bd272f26a9277191f0dcebd84c188a03c563a2a8369650431f29a1fc675",
+    "binary_path":  "target/release/koi-bench.exe",
+    "manifest_sha256":  "508ccd9afe0fe88f0cef725bd4ad278ae5ab655996958c59ad49128efc441bc4",
+    "panel_sha256":  "94e924191f4270d9b4c559a05deb12b1aea685636488a06c969052cc54a78a05",
+    "panel_hash_fx64":  "cd42c48457b48eec",
+    "blueprint_sha256":  null,
+    "leaf_model_sha256":  "b9293a93a5eb64039e62d33dd99a4c023ada9b16e54a84e3ae9f349d3911f030",
+    "ruleset":  "nintendo",
+    "stopping":  {
+                     "kind":  "sequential",
+                     "h0_elo":  0.0,
+                     "h1_elo":  100.0,
+                     "alpha":  0.05,
+                     "beta":  0.05,
+                     "min_clusters":  8,
+                     "equivalence":  {
+                                         "delta":  0.05,
+                                         "alpha":  0.05,
+                                         "min_clusters":  16
+                                     }
+                 },
+    "lane_count":  4,
+    "entrant_config_sha256":  {
+                                  "resolving_leaf":  "2954423c2bc11ac0641627fdffb1c7cefe605191047131793ff7ab2064efab7c",
+                                  "resolving_adaptive":  "04667ecfb3e40979a6112539370e6635ffe85bcc15a8af7419fcfb93ea1fa29d",
+                                  "ismcts":  "cf7bda073107902cf42cb648261c902078d50c9b95da2b0335731a8da069d279",
+                                  "pimc":  "63a23d1010836ef6752991d1e6bbf53f8719e91015ffb9fc88e92b4ce049bc5a",
+                                  "resolving_fixed":  "39a18dbf4e2b81d5e96c28c937c5c3c71be945b8da4361ea8dd569ddb0cc505d",
+                                  "heuristic":  "9b5990df51c5ca75104e08d5f66027146617861eb138e8655191fcdcf79974d2",
+                                  "endgame":  "8c814453942cfaa8043c6f2fc8acab5e10e326094dbb5a11e7d08da7a359a50e",
+                                  "random":  "76530382d3f27c32a7b2fc2c7eb827839467d854080624d63febbf2ffa84e4ba",
+                                  "leaf_policy":  "ae0f96f61434437e422e0cb1c98cf3700e6668cdb730c498cc7b139f344f66f5"
+                              }
+}

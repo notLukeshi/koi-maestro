@@ -1,0 +1,18 @@
+* text=auto
+
+*.sh  text eol=lf
+*.ps1 text eol=crlf
+
+# Provenance digests (BUILD_SOURCE_DIGEST, cargo_lock_hash) hash raw file
+# bytes — pin hashed file types to LF so a Windows checkout with
+# core.autocrlf=true produces byte-identical stamps.
+*.rs    text eol=lf
+*.toml  text eol=lf
+*.lock  text eol=lf
+*.json  text eol=lf
+*.jsonl text eol=lf
+# The committed .pyi stub is byte-compared against stub_gen output by the
+# freshness gate — CRLF checkout would phantom-fail it. *.py pinned for
+# consistency (python files are not in the source digest).
+*.py    text eol=lf
+*.pyi   text eol=lf

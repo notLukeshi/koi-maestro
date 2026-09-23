@@ -1,0 +1,59 @@
+{
+ "schema_version": 1,
+ "run_label": "P6 probe: resolving_leaf 12w/60000n/80cfr/d4 vs heuristic",
+ "ruleset": "nintendo",
+ "seeds": [
+  180200,
+  180201,
+  180202,
+  180203,
+  180204,
+  180205
+ ],
+ "stopping": {
+  "kind": "sequential",
+  "h0_elo": 0.0,
+  "h1_elo": 100.0,
+  "alpha": 0.05,
+  "beta": 0.05,
+  "min_clusters": 6
+ },
+ "worker_timeout_seconds": 60,
+ "time_hard_cap_ms": 30000,
+ "invalid_forfeit_margin": 256.0,
+ "bootstrap": {
+  "repetitions": 10000,
+  "seed": 7,
+  "confidence_level": 0.99
+ },
+ "baseline": {
+  "label": "heuristic",
+  "artifact": {
+   "kind": "self_binary"
+  },
+  "config": {
+   "solver": "heuristic",
+   "seed": 4
+  }
+ },
+ "candidate": {
+  "label": "resolving_leaf",
+  "artifact": {
+   "kind": "self_binary"
+  },
+  "config": {
+   "solver": "resolving",
+   "resolving": {
+    "max_worlds": 12,
+    "max_nodes": 60000,
+    "cfr_iterations": 80,
+    "max_decision_depth": 4,
+    "adaptive": false,
+    "ox": false,
+    "blueprint_artifact": null,
+    "leaf_model": "<repo-root>/crates/koi-solver/tests/leaf/model.onnx"
+   },
+   "seed": 3
+  }
+ }
+}

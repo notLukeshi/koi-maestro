@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "run_label": "P5 pilot: sizing + lane measurement: heuristic vs resolving_adaptive",
+  "ruleset": "nintendo",
+  "seeds": [
+    16034480500904598573,
+    4677710776332959296,
+    13271961482927859836,
+    10529852546119080842,
+    14671832180405412331,
+    17017001798808896126,
+    18145539812079460165,
+    49272188150520080,
+    4902487414315408253,
+    14075327324793344651,
+    18351434641185641655,
+    7575956051109723050,
+    1745845176427152899,
+    10356463945147717012,
+    10703843830651834799,
+    15561891488122254539
+  ],
+  "stopping": {
+    "kind": "sequential",
+    "h0_elo": 0.0,
+    "h1_elo": 100.0,
+    "alpha": 0.05,
+    "beta": 0.05,
+    "min_clusters": 8,
+    "equivalence": {
+      "delta": 0.05,
+      "alpha": 0.05,
+      "min_clusters": 16
+    }
+  },
+  "worker_timeout_seconds": 60,
+  "time_hard_cap_ms": 30000,
+  "invalid_forfeit_margin": 256.0,
+  "bootstrap": {
+    "repetitions": 10000,
+    "seed": 7,
+    "confidence_level": 0.99
+  },
+  "baseline": {
+    "label": "heuristic",
+    "artifact": {
+      "kind": "self_binary"
+    },
+    "config": {
+      "solver": "heuristic",
+      "archetype": null,
+      "ismcts": {
+        "iterations": 10000,
+        "score_norm": 20.0
+      },
+      "pimc": {
+        "max_simulations": 64,
+        "batch_size": 32,
+        "scoring_method": "mean"
+      },
+      "resolving": {
+        "max_worlds": 24,
+        "max_nodes": 600000,
+        "cfr_iterations": 300,
+        "max_decision_depth": 6,
+        "adaptive": true,
+        "ox": false,
+        "blueprint_artifact": null,
+        "leaf_model": null
+      },
+      "use_parallel": true,
+      "log_level": "warn",
+      "seed": 2
+    }
+  },
+  "candidate": {
+    "label": "resolving_adaptive",
+    "artifact": {
+      "kind": "self_binary"
+    },
+    "config": {
+      "solver": "resolving",
+      "archetype": null,
+      "ismcts": {
+        "iterations": 10000,
+        "score_norm": 20.0
+      },
+      "pimc": {
+        "max_simulations": 64,
+        "batch_size": 32,
+        "scoring_method": "mean"
+      },
+      "resolving": {
+        "max_worlds": 16,
+        "max_nodes": 200000,
+        "cfr_iterations": 80,
+        "max_decision_depth": 4,
+        "adaptive": true,
+        "ox": true,
+        "blueprint_artifact": null,
+        "leaf_model": null
+      },
+      "use_parallel": true,
+      "log_level": "warn",
+      "seed": 7
+    }
+  }
+}

@@ -1,0 +1,33 @@
+[package]
+name = "koi-maestro-learn"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+homepage.workspace = true
+
+
+[lib]
+name = "koi_learn"
+
+[dependencies]
+koi-maestro-build-info.workspace = true
+koi-maestro-core.workspace = true
+koi-maestro-solver.workspace = true
+rand.workspace = true
+rayon.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+clap.workspace = true
+anyhow.workspace = true
+env_logger.workspace = true
+
+[features]
+# ONNX oracle for `--oracle-model` resolve-method corpora — forwards to the
+# solver's optional backend, same posture as `koi-pyo3`'s passthrough.
+leaf-ort = ["koi-maestro-solver/leaf-ort"]
+
+[lints]
+workspace = true

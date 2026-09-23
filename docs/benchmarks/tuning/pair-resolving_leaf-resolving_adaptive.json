@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "run_label": "A5 tuning: resolving_leaf vs resolving_adaptive",
+  "ruleset": "nintendo",
+  "seeds": [180000, 180001, 180002, 180003, 180004, 180005, 180006, 180007, 180008, 180009, 180010, 180011, 180012, 180013, 180014, 180015],
+  "stopping": {
+    "kind": "sequential",
+    "h0_elo": 0.0,
+    "h1_elo": 100.0,
+    "alpha": 0.05,
+    "beta": 0.05,
+    "min_clusters": 8,
+    "equivalence": {
+      "delta": 0.05,
+      "alpha": 0.05,
+      "min_clusters": 16
+    }
+  },
+  "worker_timeout_seconds": 60,
+  "time_hard_cap_ms": 30000,
+  "invalid_forfeit_margin": 256.0,
+  "bootstrap": {
+    "repetitions": 10000,
+    "seed": 7,
+    "confidence_level": 0.99
+  },
+  "baseline": {
+    "label": "resolving_leaf",
+    "artifact": { "kind": "self_binary" },
+    "config": {
+      "solver": "resolving",
+      "seed": 8,
+      "resolving": {
+        "max_worlds": 16,
+        "max_nodes": 200000,
+        "cfr_iterations": 80,
+        "max_decision_depth": 4,
+        "adaptive": false,
+        "ox": false,
+        "leaf_model": "<repo-root>/runs/leaf/model.onnx"
+      }
+    }
+  },
+  "candidate": {
+    "label": "resolving_adaptive",
+    "artifact": { "kind": "self_binary" },
+    "config": {
+      "solver": "resolving",
+      "seed": 7,
+      "resolving": {
+        "max_worlds": 16,
+        "max_nodes": 200000,
+        "cfr_iterations": 80,
+        "max_decision_depth": 4,
+        "adaptive": true,
+        "ox": true
+      }
+    }
+  }
+}

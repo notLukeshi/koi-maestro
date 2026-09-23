@@ -1,0 +1,54 @@
+{
+ "schema_version": 1,
+ "run_label": "P6-A1 smoke: leaf_policy vs heuristic",
+ "ruleset": "nintendo",
+ "seeds": [
+  180016,
+  180017,
+  180018,
+  180019,
+  180020,
+  180021,
+  180022,
+  180023
+ ],
+ "stopping": {
+  "kind": "sequential",
+  "h0_elo": 0.0,
+  "h1_elo": 100.0,
+  "alpha": 0.05,
+  "beta": 0.05,
+  "min_clusters": 8
+ },
+ "worker_timeout_seconds": 60,
+ "time_hard_cap_ms": 30000,
+ "invalid_forfeit_margin": 256.0,
+ "bootstrap": {
+  "repetitions": 10000,
+  "seed": 7,
+  "confidence_level": 0.99
+ },
+ "baseline": {
+  "label": "leaf_policy",
+  "artifact": {
+   "kind": "self_binary"
+  },
+  "config": {
+   "solver": "leaf_policy",
+   "seed": 9,
+   "leaf_policy": {
+    "leaf_model": "<repo-root>/crates/koi-solver/tests/leaf/model.onnx"
+   }
+  }
+ },
+ "candidate": {
+  "label": "heuristic",
+  "artifact": {
+   "kind": "self_binary"
+  },
+  "config": {
+   "solver": "heuristic",
+   "seed": 1
+  }
+ }
+}

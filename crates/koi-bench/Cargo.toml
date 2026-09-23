@@ -1,0 +1,38 @@
+[package]
+name = "koi-maestro-bench"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+homepage.workspace = true
+
+[[bin]]
+name = "koi-bench"
+path = "src/main.rs"
+
+
+[lib]
+name = "koi_bench"
+
+[features]
+# ONNX leaf-evaluator support for `resolving_leaf` / `leaf_policy` entrants.
+# Field binaries binding a leaf model must be built with this feature.
+leaf-ort = ["koi-maestro-solver/leaf-ort"]
+leaf-ort-cuda = ["leaf-ort", "koi-maestro-solver/leaf-ort-cuda"]
+
+[dependencies]
+koi-maestro-core.workspace = true
+koi-maestro-solver.workspace = true
+koi-maestro-build-info.workspace = true
+rand.workspace = true
+rand_chacha.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+clap.workspace = true
+log.workspace = true
+env_logger.workspace = true
+[lints]
+workspace = true

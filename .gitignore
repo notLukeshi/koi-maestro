@@ -1,0 +1,17 @@
+target/
+__pycache__/
+*.pyc
+*.pyd
+*.so
+*.dylib
+.venv/
+.venv-*/
+env/
+.idea/
+.vscode/
+*.log
+data/
+runs/
+out/
+.VSCodeCounter/
+dist/

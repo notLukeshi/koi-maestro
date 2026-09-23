@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "run_label": "P5 field: 7-entrant definitive tournament",
+  "ruleset": "nintendo",
+  "panel": {
+    "kind": "generated",
+    "seed": 200000,
+    "size": 256
+  },
+  "stopping": {
+    "kind": "sequential",
+    "h0_elo": 0.0,
+    "h1_elo": 100.0,
+    "alpha": 0.05,
+    "beta": 0.05,
+    "min_clusters": 8,
+    "equivalence": {
+      "delta": 0.05,
+      "alpha": 0.05,
+      "min_clusters": 16
+    }
+  },
+  "worker_timeout_seconds": 60,
+  "time_hard_cap_ms": 30000,
+  "invalid_forfeit_margin": 256.0,
+  "bootstrap": {
+    "repetitions": 10000,
+    "seed": 7,
+    "confidence_level": 0.99
+  },
+  "entrants": [
+    {
+      "label": "random",
+      "artifact": { "kind": "self_binary" },
+      "config": { "solver": "random", "seed": 1 }
+    },
+    {
+      "label": "heuristic",
+      "artifact": { "kind": "self_binary" },
+      "config": { "solver": "heuristic", "seed": 2 }
+    },
+    {
+      "label": "ismcts",
+      "artifact": { "kind": "self_binary" },
+      "config": {
+        "solver": "ismcts",
+        "seed": 3,
+        "ismcts": {
+          "iterations": 4000,
+          "score_norm": 200.0
+        }
+      }
+    },
+    {
+      "label": "pimc",
+      "artifact": { "kind": "self_binary" },
+      "config": {
+        "solver": "pimc",
+        "seed": 4,
+        "pimc": {
+          "max_simulations": 512,
+          "batch_size": 64,
+          "scoring_method": "mean"
+        }
+      }
+    },
+    {
+      "label": "endgame",
+      "artifact": { "kind": "self_binary" },
+      "config": { "solver": "endgame", "seed": 5 }
+    },
+    {
+      "label": "resolving_fixed",
+      "artifact": { "kind": "self_binary" },
+      "config": {
+        "solver": "resolving",
+        "seed": 6,
+        "resolving": {
+          "max_worlds": 16,
+          "max_nodes": 200000,
+          "cfr_iterations": 80,
+          "max_decision_depth": 4,
+          "adaptive": false,
+          "ox": false
+        }
+      }
+    },
+    {
+      "label": "resolving_adaptive",
+      "artifact": { "kind": "self_binary" },
+      "config": {
+        "solver": "resolving",
+        "seed": 7,
+        "resolving": {
+          "max_worlds": 16,
+          "max_nodes": 200000,
+          "cfr_iterations": 80,
+          "max_decision_depth": 4,
+          "adaptive": true,
+          "ox": true
+        }
+      }
+    }
+  ]
+}

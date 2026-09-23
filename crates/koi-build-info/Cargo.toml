@@ -1,0 +1,16 @@
+[package]
+name = "koi-maestro-build-info"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Shared build provenance: git stamp, FNV workspace source digest, rustflags/PGO identity"
+repository.workspace = true
+homepage.workspace = true
+
+
+[lib]
+name = "koi_build_info"
+
+[lints]
+workspace = true
