@@ -83,6 +83,8 @@ pip install maturin
 maturin build --profile release-wheel
 pip install target/wheels/koi_maestro-*.whl
 python -m pytest src/tests   # wheel API smoke + dataset contract
+python examples/quickstart.py          # guided API tour (needs the wheel)
+pip install ".[play]"                  # then: python examples/play_koikoi.py
 ```
 
 Test boundaries — suites outside the default `cargo test` gate:
@@ -190,6 +192,7 @@ the canonical field.
 | `crates/koi-build-info` | Compile-time git stamp + FNV source digest + profile identity |
 | `src/koi_maestro` | Python package: thin `__init__`, `learn/` (dataset, model, train, export, calibrate) |
 | `src/tests` | pytest suite: wheel smoke (all solvers, determinism) + dataset contract |
+| `examples/` | `quickstart.py` guided API tour; `play_koikoi.py` interactive terminal game vs every solver tier |
 | `docs/` | `RULES.md`, `ARCHITECTURE.md`, `BENCHMARK-JOURNAL.md`, `benchmarks/` evidence base |
 | `scripts/` | `check.{ps1,sh}` gates, `tournament/` ops scripts |
 
